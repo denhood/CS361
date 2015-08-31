@@ -1,0 +1,15 @@
+#include <iostream>
+
+#include<stack>
+
+using namespace std;
+
+int main()
+{
+    stack <int> first;
+    stack <int> second;
+    stack <int> third;
+
+
+    return 0;
+}
