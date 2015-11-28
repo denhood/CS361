@@ -1,13 +1,26 @@
 #include<iostream>
-#include<ctime>
-//#include<cstdbool>
+#include<deque>
 #include<string>
+#include<sstream>
+#include<cstdlib>
+#include<ctime>
 #include"osHeader.h"
 
 using namespace std;
 
 int main(void)
 {
+    PCB* newProcess; // = new PCB;
+    PCB* currProcess;
+    PCBqueue systemQueues; //an object to contain our queues and their respective functions
+
+    int userInput;
+    std::string command, nameIn, rawData;
+    std::stringstream lineIn;
+    char classIn;
+    int priorityIn, offset;
+    bool continueinput = true;
+    bool isGood = true;
     string input = "";
     bool terminate = false;
 
@@ -15,13 +28,12 @@ int main(void)
     printfOSVersion();
     while(terminate != true)
     {
-        cout<<">";
-        input = ""; //clear input buffer
-        cin>>input;
-
-        switch(hashIt(input))
+        std::cout<<"\n>";
+        std::getline(std::cin,command);
+        userInput = parseString(command);
+        switch(userInput)
         {
-            case quit:
+            case QUIT:
                     if(exitSimulator() == true)
                     {
                         terminate = true;
@@ -31,20 +43,66 @@ int main(void)
                         terminate = false;
                     }
                     break;
-            case version:
+            case VERSION:
                     printfOSVersion();
                     break;
-            case date:
+            case DATE:
                     getDate();
                     break;
-            case help:
+            case HELP:
                     cout<<"This is a simulation of an Operating System.\n";
                     break;
+            case CREATE:
+                systemQueues.setupPCB();
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case DELETE:
+                std::cout<<"enter name of process to erase: ";
+                std::cin>>nameIn;
+                systemQueues.erasePCB(nameIn);
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case BLOCK:
+                systemQueues.block();
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case UNBLOCK:
+                systemQueues.unblock();
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case SUSPEND:
+                std::cout<<"sus"<<std::endl;
+                break;
+            case RESUME:
+                std::cout<<"res"<<std::endl;
+                break;
+            case PRIORITY:
+                systemQueues.setpriority();
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case SHOWPCB:
+                systemQueues.PCBshow();
+                std::cin.ignore(); //ignore "\n" left in cin input buffer
+                break;
+            case SHOWALL:
+                systemQueues.showAll();
+                break;
+            case SHOWREADY:
+                systemQueues.printReadyQueue();
+                //std::cin.ignore();
+                break;
+            case SHOWBLOCKED:
+                systemQueues.printBlockedQueue();
+                break;
+            case ERROR:
+                std::cout<<"ERROR!";
+                break;
             default:
                     cout<<"Bad command or filename\n";
                     break;
 
         }
-    }
+    }std::cout<<"\nProgram terminated!\n";
+
     return 0;
 }

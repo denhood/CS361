@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1441019681 source:/home/user/Desktop/cs361/operating system simulator/osStart.cpp
+	<iostream>
+	<ctime>
+	<string>
+	"osHeader.h"
+
+1442935728 /home/user/Desktop/cs361/operating system simulator/osHeader.h
+

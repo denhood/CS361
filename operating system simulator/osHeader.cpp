@@ -1,40 +1,48 @@
 #include<iostream>
-#include<ctime>
-//#include<cstdbool>
+#include<deque>
 #include<string>
+#include<sstream>
+#include<cstdlib>
+#include<ctime>
 #include"osHeader.h"
-using namespace std;
+
 //enum command{quit, version, date, rreadMe};
 
 //command hashIt (string const& input)
-command hashIt (std::string const& input)
-{
-    if (input == "quit" || input == "Quit")
-        {return quit;}
-    if (input == "version")
-        {return version;}
-    if (input == "date")
-        {return date;}
-    if (input == "help")
-        {return help;}
-
-}
+command parseString(std::string input){
+    if(input == "version"){return VERSION;}
+    if(input == "date"){return DATE;}
+    if(input == "help"){return HELP;}
+    if(input == "createPCB"){return CREATE;}
+    if(input == "deletePCB"){return DELETE;}
+    if(input == "block"){return BLOCK;}
+    if(input == "unblock"){return UNBLOCK;}
+    if(input == "suspend"){return SUSPEND;}
+    if(input == "resume"){return RESUME;}
+    if(input == "set priority"){return PRIORITY;}
+    if(input == "show PCB"){return SHOWPCB;}
+    if(input == "show all"){return SHOWALL;}
+    if(input == "show ready"){return SHOWREADY;}
+    if(input == "show blocked"){return SHOWBLOCKED;}
+    if(input == "quit"){return QUIT;}
+    //else{return ERROR;}
+    }
 
 void printfOSVersion(void)
 {
-    cout<<"OS Version "<<OSVERSION<<endl;
+    std::cout<<"OS Version "<<OSVERSION<<std::endl;
     return;
 }
 void printStartUp(void)
 {
-    cout<<"Welcome to the DENIX operating system."<<endl;
+    std::cout<<"Welcome to the DENIX operating system."<<std::endl;
     return;
 }
 bool exitSimulator()
 {
-    string answer = "";
-    cout<<"Are you sure you wish to exit the simulator?"<<endl;
-    cin>>answer;
+    std::string answer = "";
+    std::cout<<"Are you sure you wish to exit the simulator?"<<std::endl;
+    std::cin>>answer;
     if(answer == "Yes" || answer == "Y" || answer == "yes" || answer == "y")
     {
         return true;
@@ -52,7 +60,8 @@ void getDate(void)
     int valueDay = t;
     valueYear = (valueYear/31536000)+1970;
     valueMonth = (valueMonth/2628000)-540;
+    //valueDay = (valueDay/)
 
-    cout<<valueMonth<<"-"<<valueDay<<"-"<<valueYear<<endl;
+    std::cout<<valueMonth<<"-"<<valueDay<<"-"<<valueYear<<std::endl;
     return; // (valueMonth+"-"+valueYear);
 }
